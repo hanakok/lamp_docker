@@ -1,0 +1,23 @@
+version: '3'
+services:
+  server:
+    image: centos:7
+
+  php70-apache:
+    image: php:7.2-apache
+    ports:
+      - 80:80
+    volumes:
+      - /Users/hanako/workspace/src:/var/www/html
+    depends_on:
+      - mysql
+    tty: true
+
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - 8080:80
