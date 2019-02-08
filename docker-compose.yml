@@ -3,15 +3,19 @@ services:
   server:
     image: centos:7
 
-  php70-apache:
-    image: php:7.2-apache
+  php:
+    image: php:7.2-fpm
+    volumes:
+    - マウントしたいローカルディレクトリ:/var/www/html
+
+  nginx:
+    image: nginx
     ports:
       - 80:80
-    volumes:
-      # - ホストマシンでコードを格納するディレクトリ:/var/www/html
     depends_on:
       - mysql
-    tty: true
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
 
   mysql:
     image: mysql
